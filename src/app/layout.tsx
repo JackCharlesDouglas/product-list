@@ -1,14 +1,18 @@
+import { Box } from '@chakra-ui/react'
 import { Providers } from './providers'
+import { ReactNode } from 'react'
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode,
+  children: ReactNode
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Box w={'full'} h={'100svh'} bg={'gray.900'}>{children}</Box>
+        </Providers>
       </body>
     </html>
   )
