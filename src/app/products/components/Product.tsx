@@ -1,6 +1,6 @@
 'use client'
 import { Box, Flex, HStack, IconButton, Stack, Text } from '@chakra-ui/react'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { Product as ProductType } from '../types'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 
@@ -10,6 +10,22 @@ export const Product: FC<ProductType> = ({ name, price, description }) => {
   const handleFavourite = () => {
     setFavourited((prev) => !prev)
   }
+
+  const handleClick = useCallback(async () => {
+    try {
+      fetch(`http://localhost:3000/products/api/click`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+        }),
+      })
+    } catch (error) {
+      // TODO: handle error
+    }
+  }, [name])
 
   return (
     <Box
@@ -22,6 +38,7 @@ export const Product: FC<ProductType> = ({ name, price, description }) => {
       pt={4}
       px={6}
       pb={3}
+      onClick={handleClick}
     >
       <Stack spacing={4} h={'full'}>
         <Flex justify={'space-between'}>
@@ -33,7 +50,12 @@ export const Product: FC<ProductType> = ({ name, price, description }) => {
             colorScheme={'blue'}
             icon={favourited ? <FaHeart /> : <FaRegHeart />}
             aria-label="Add to favorites"
-            onClick={handleFavourite}
+            onClick={(e) => {
+              // stop handleClick()
+              e.stopPropagation()
+
+              handleFavourite()
+            }}
           />
         </Flex>
         <Text color={'whiteAlpha.900'}>{description}</Text>
