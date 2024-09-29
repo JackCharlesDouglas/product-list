@@ -16,6 +16,7 @@ export const ClicksTable: FC = () => {
   const [productClicks, setProductClicks] = useState<ProductClicks>([])
 
   // TODO: This is bad, use SWR or alternative
+  // Fetch the products click count every 2 seconds
   useEffect(() => {
     const fetchData = async () => {
       await fetch('http://localhost:3000/products/api/click')

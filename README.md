@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Installation and Testing
 
-## Getting Started
+1. `npm install`
+2. `npm run dev`
+3. Navigate to `http://localhost:3000/`
 
-First, run the development server:
+## Framework and Libraries
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Framework: Next.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- I can encapsulate both fontend and backend code in Next.js
+- I am experienced in Next.js
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Component/CSS library: Chakra-ui
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- An out of the box component library to save me time on component styling and creation
+- I am experienced with Chakra-ui
 
-## Learn More
+## The Code
 
-To learn more about Next.js, take a look at the following resources:
+The code lives in `src/app` with `page.tsx` being the landing page.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+There are two folders used to organise the code. /categories and /products inside both folders there is `data.json` acting as the DB, `types.ts`, /components and /api.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+I didn't implement error handling and abstracting JSON file handling due to time constraints.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I'm using the `fetch()` API in `useEffect()`, this is not the best approach. I need to integrate library to handle API requests so I can handle loading state, caching data and errors effectively.
