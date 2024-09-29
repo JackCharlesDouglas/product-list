@@ -2,6 +2,23 @@ import { NextRequest } from 'next/server'
 import fs from 'fs'
 import { Product } from '../../types'
 
+export const GET = async (): Promise<Response> => {
+  const data = fs.readFileSync('./src/app/products/data.json', 'utf-8')
+  const products = JSON.parse(data) as Product[]
+
+  const productClicks = products.map(({ name, clicks }) => ({
+    name: name,
+    clicks: clicks,
+  }))
+
+  return new Response(JSON.stringify(productClicks), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
 export const POST = async (request: NextRequest): Promise<Response> => {
   const body = await request.json()
   const name = body?.name

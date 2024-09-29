@@ -12,19 +12,18 @@ export const Product: FC<ProductType> = ({ name, price, description }) => {
   }
 
   const handleClick = useCallback(async () => {
-    try {
-      fetch(`http://localhost:3000/products/api/click`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-        }),
-      })
-    } catch (error) {
+    await fetch(`http://localhost:3000/products/api/click`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+      }),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    }).catch((error) => {
       // TODO: handle error
-    }
+    })
   }, [name])
 
   return (
