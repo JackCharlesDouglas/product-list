@@ -1,15 +1,25 @@
+'use client'
 import { AbsoluteCenter, Box, Heading, Stack } from '@chakra-ui/react'
-import { Product as ProductType } from './types'
-import { Product } from './components/Product'
-
-const productData: ProductType[] = [
-  { name: 'Wireless Earbuds', price: 29.99, description: 'Compact, sleek design with superior sound quality. Long battery life and noise cancellation for immersive listening.' },
-  { name: 'Smartwatch', price: 39.99, description: 'Track fitness, heart rate, and notifications. Stay connected with GPS, activity monitoring, and health insights.' },
-  { name: 'Eco-Friendly Water Bottle', price: 9.99, description: 'BPA-free, insulated, and reusable for daily hydration. Keeps drinks cold for 24 hours or hot for 12 hours.' },
-  { name: 'Portable Power Bank', price: 19.99, description: 'Fast charging with multiple device compatibility. Slim, lightweight, and ideal for on-the-go power needs.' },
-]
+import { Product as ProductType } from './products/types'
+import { Product } from './products/components/Product'
+import { useEffect, useState } from 'react'
+import { CategoryFilter } from './categories/components/CategoryFilter'
+import { Category } from './categories/types'
 
 const Home = () => {
+  const [products, setProducts] = useState<ProductType[]>([])
+  const [category, setCategory] = useState<Category | undefined>(undefined)
+
+  useEffect(() => {
+    const url = new URL('http://localhost:3000/products/api')
+    if (category) url.searchParams.set('category', category)
+
+    // TODO: This is bad, use SWR or alternative
+    fetch(url.toString())
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+  }, [category])
+
   return (
     <AbsoluteCenter>
       <Box
@@ -28,7 +38,8 @@ const Home = () => {
             Shop Now!
           </Heading>
           <Stack spacing={4}>
-            {productData.map((product, i) => (
+            <CategoryFilter onChange={setCategory} />
+            {products.map((product, i) => (
               <Product key={i} {...product} />
             ))}
           </Stack>
